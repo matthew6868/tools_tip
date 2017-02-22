@@ -1,0 +1,4 @@
+1,netsh wlan set hostednetwork mode=allow ssid=xuyao-win10 key=12345678
+2,netsh wlan start hostednetwork
+3,设置某一个有效的网络设备到该虚拟热点的共享
+4,netsh wlan stop hostednetwork

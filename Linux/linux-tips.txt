@@ -1,0 +1,14 @@
+linux tips
+
+1, copy files/folders
+cp file1.txt file2.txt /home/mxu
+cp -r -v folder /home/mxu #-v:verbose
+
+2, change folder permission for apache
+sudo chown -R www-data:www-data <folder>
+
+3, Get the List of Subdirectories With Their Owner & Permissions and Full Paths
+ls -dl `find ./ -type d` | grep -v root
+
+4,How to specify in crontab by what user to run script?
+crontab -u www-data -e / run as specical user and do crontab -e

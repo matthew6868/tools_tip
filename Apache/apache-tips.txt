@@ -1,0 +1,12 @@
+1) In Apache 2.4 can't access the javascript folder in our self web site, other folders are works ?
+this is caused by javascript-comm.conf in /etc/apache2/conf-enabled
+
+2) The mcrypt extension is missing. Please check your PHP configuration
+in ubuntu 14.0.4 LTS OS:
+apt-get install php5-mcrypt
+ln -s /etc/php5/config.d/mcrypt.ini /etc/php5/mods-available
+php5enmod mcrypt
+apache2 restart
+
+3) enable rewrite log
+add "LogLevel alert rewrite:trace6" to httpd.conf

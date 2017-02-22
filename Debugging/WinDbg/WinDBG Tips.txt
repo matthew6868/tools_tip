@@ -1,0 +1,277 @@
+{<------------------------------------Debug essential skill-------------------------------------->
+1, Set symbols server:
+srv*D:\Debugging\Symbols\MS*http://msdl.microsoft.com/download/symbols
+set _NT_SYMBOL_PATH=D:\Debugging\symbols\MS;srv*E:\Symbols\MS*http://msdl.microsoft.com/download/symbols
+srv*D:\Debugging\Symbols*http://msdl.microsoft.com/download/symbols;srv*D:\Debugging\Symbols*http://debug.nero.internal/symbols;
+!sym noisy 
+
+2, List all threads in the process. 
+~*, ~:thread identifier, ~~[TID], ~Number, ~.,~#
+
+3, Display stack backtrace of current thread
+K* command, kb, kv, ~*kb
+
+4,.cls (Clear Screen)
+
+5,!heap, !heap -l(Causes the debugger to detect leaked heap blocks.), !heap -p -h [handle], !heap 00a50000 -b alloc
+!heap -p -a <address> - Shows information about the heap block containing <address>, even if you aren't using pageheap. 
+memory leak:
+!heap -s -k --> !heap -stat -h 001c0000 --> !heap -flt s e1020 --> !heap -p -a 14d20020
+//
+// Heap flags
+//
+#define HEAP_NO_SERIALIZE               0x00000001
+#define HEAP_GROWABLE                   0x00000002
+#define HEAP_GENERATE_EXCEPTIONS        0x00000004
+#define HEAP_ZERO_MEMORY                0x00000008
+#define HEAP_REALLOC_IN_PLACE_ONLY      0x00000010
+#define HEAP_TAIL_CHECKING_ENABLED      0x00000020
+#define HEAP_FREE_CHECKING_ENABLED      0x00000040
+#define HEAP_DISABLE_COALESCE_ON_FREE   0x00000080
+
+#define HEAP_CREATE_ALIGN_16            0x00010000
+#define HEAP_CREATE_ENABLE_TRACING      0x00020000
+#define HEAP_CREATE_ENABLE_EXECUTE      0x00040000
+
+
+6,dt (Display Type); e.g.:dt ntdll!_CONTEXT
+
+7,d (Display Memory):da, db, du, dc, dw, dD, dd
+
+8,.thread (Set Register Context)
+
+9,lm (List Loaded Modules)
+
+10,x (Examine Symbols): x ntdll!*
+
+11,ln (List Nearest Symbols):ln 72888848
+
+12,.reload, .load, !sys noisy, .reload /i
+
+13,b(breakpoints): bm, bl, bp, bu
+
+14, s (Search Memory);e.g.:s -d 1a38d000 L10000 1003f;s -d esp L1000 0x1003f/0x1001f/0x1007f
+
+15, !address, e.g.,!address -RegionUsageHeap
+
+16, !drivers -->lm t n
+
+17,!handle 000010b8 f
+
+18,!htrace -enable; !htrace -diff
+
+19,dds(Display Words and Symbols) 3b928000 3b930000
+
+20,.frame 0d;DV
+
+21,!locks
+   !critsec
+   dt RTL_CRITICAL_SECTION 48999
+   !cs -t //application verifier enabled
+
+22,!run;!runaway
+
+23,!exchain; .exr 00113068;.cxr 1a38f860;exception context restore
+.exr -1 shows the most recent exception.  Useful in user dumps of crashes, especially for no execute crashes (NX/DEP).
+
+24,!dh extension displays the PE header information from a specified module.
+
+25,!error c0000025
+
+26,.formats
+
+27, bp kernel32!virtualalloc ".if (@edx==S) {kp} .else {g}", S stands the desired size
+bp /t EThread - Sets a kernel mode breakpoint that only triggers when hit in the context of this thread.
+bp /p EProcess - Sets a kernel mode breakpoint that only triggers when hit in the context of this process.
+gc - If you run 'p' and hit a breakpoint, gc takes you where p would have gone if you had not hit the bp.
+gu - Go until the current function returns.  Effectively this unwinds one stack frame. 
+pc - Steps through until the next 'call' instruction. Combine with other commands to find who returned your error> pc;p;r eax 
+pt - Steps through until the next 'ret' instruction. Similar to gu, but pt stops on the ret and gu stops after the ret. 
+
+28, .logopen; .logclose
+
+29,sxe ld:module.dll - Enables an exception which will break into the debugger when module.dll is loaded. 
+
+30,how to determine MTA or STA(not 100% correct):
+dt NTDLL!_TEB @$teb, get the "ReservedForOle" field value
+#define OLE_STA_MASK   0x080    // Bugslayer, MSJ 10/99 
+#define OLE_MTA_MASK   0x140    // Bugslayer, MSJ 10/99
+#define OLE_TNA_MASK   0x800    // http://members.tripod.com/IUnknwn
+
+? 0x005dc820 & 0x80 ->0 not STA
+
+
+{<------------------------------------32bit application in 64bit OS-------------------------->}
+
+!wow64exts.sw
+.thread /w - Changes to the WOW64 32-bit context from 64-bit kernel mode. Wow64exts doesn't work in kernel mode.
+
+
+{<------------------------------------Enter Managed World------------------------------------->}
+Debug managed application(.Net) tips:
+
+1,.load sos.dll;.loadby sos mscorwks;.loadby sos clr(for .net 4.0);.loadby SOS_4.0.30319.0269.dll clr
+2,!pe(print exception?), be sure run this command in exception thread
+3,!dumpheap
+4,!eeheap -gc
+5,!clrstack (-a)
+6,!ip2md
+7,!dumpheap -mt <methodtable address> -->get the heap address from MT address
+8,!dumpobj
+9,!dumpclass
+
+SOS : Help
+
+COMState             | List COM state for each thread
+
+ClrStack             | Provides true managed stack trace, source and line numbers.
+
+                       Additional parameters: -p[arams] -l[ocals] -r[egs] -a[ll].
+
+DumpClass <addr>     | Dump EEClass info
+
+DumpDomain [<addr>]  | List assemblies and modules in a domain
+
+DumpHeap [-stat] [-min 100] [-max 2000] [-mt 0x3000000] [-type <partial type name>] [-fix] [start [end]] | Dump GC heap contents
+
+DumpMD <addr>        | Dump MethodDesc info
+
+DumpMT [-MD] <addr>  | Dump MethodTable info
+
+DumpModule <addr>    | Dump EE Module info
+
+DumpObj <addr>       | Dump an object on GC heap
+
+DumpStack [-EE] [-smart] [top stack [bottom stack] | -EE only shows managed stack items.
+
+DumpStackObjects [top stack [bottom stack]
+
+DumpVC <mt> <addr>   | Dump a value class object
+
+EEHeap [-gc] [-win32] [-loader] | List GC/Loader heap info
+
+EEStack [-short] [-EE] | List all stacks EE knows
+
+EEVersion            | List mscoree.dll version
+
+FinalizeQueue [-detail]     | Work queue for finalize thread
+
+GCInfo [<MD>] [IP]   | Dump GC encoding info for a managed method
+
+GCRoot <addr>        | Find roots on stack/handle for object
+
+IP2MD <addr>         | Find MethodDesc from IP
+
+Name2EE <module name> <item name> | Find memory address of EE data given a class/method name
+
+ObjSize [<addr>]     | Find number of bytes that a root or all roots keep alive on GC heap.
+
+ProcInfo [-env] [-time] [-mem] | Display the process info
+
+RWLock [-all] <addr> | List info for a Read/Write lock
+
+SyncBlk [-all|#]     | List syncblock
+
+ThreadPool           | Display CLR threadpool state
+
+Threads              | List managed threads
+
+Token2EE  <module name> <mdToken> | Find memory address of EE data for metadata token
+
+u [<MD>] [IP]        | Unassembly a managed code
+
+[ALL SUPPORTED COMMAND IN SOS.DLL]
+WatsonBuckets
+bpmd: !BPMD <module name> <method name>;!BPMD -md <MethodDesc>;!BPMD provides managed breakpoint support.
+clrstack
+comstate
+da->dumparray
+do->dumpobj
+dso->dumpstackobjs
+dumparray
+dumpassembly
+dumpclass
+dumpdomain
+dumpheap
+dumpil: !DumpIL <Managed DynamicMethod object> | <DynamicMethodDesc pointer> | <MethodDesc pointer>
+dumplog: Attempting to dump Stress log to file 'StressLog.txt'
+dumpmd
+dumpmethodsig
+dumpmodule
+dumpmt
+dumpobj
+dumpruntimetypes
+dumpsig
+dumpstack
+dumpstackobjects
+dumpvc
+eeheap
+eestack
+eeversion
+ehinfo: !EHInfo (<MethodDesc address> | <Code address>);it shows the exception handling blocks in a jitted method.
+finalizequeue
+findappdomain
+gchandleleaks
+gchandles
+gcinfo: !GCInfo (<MethodDesc address> | <Code address>);
+gcroot
+help
+ip2md
+minidumpmode
+name2ee
+objsize
+pe
+printexception
+procinfo: !ProcInfo lists the environment variables for the process, kernel CPU time, as well as memory usage statistics.
+rcwcleanuplist: !RCWCleanupList <RCWCleanupList address>
+savemodule
+soe: StopOnException
+sosflush
+stoponexception
+syncblk
+threadpool
+threads
+token2ee
+traverseheap: !TraverseHeap writes out a file in a format understood by the CLR Profiler.
+tst
+u: !U [-gcinfo] [-ehinfo] <MethodDesc address> | <Code address>
+verifyheap
+vmmap: traverses the virtual address space and lists the type of protection applied to each region.
+vmstat
+
+.foreach (ex {!dumpheap -type Exception -short}) {.echo "------------------------";!pe ${ex}}
+
+{<--------------------------Extension of sos.dll---------------------------------->}
+.load SOSEX.dll extend(http://www.stevestechspot.com/default.aspx)
+1,!dlk 	;check deadlock
+
+2,!threads
+
+3,mk	;See your full callstack, managed and unmanaged frames
+
+4,!mdt	;dump the fields of a given type by type name or to examine the fields of an object or value type instance
+~~~~~~~~~~~~~~~~~~~~~~~~~example begin~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0:000> !mdt System.DateTime 003bef0c 
+003bef0c (System.DateTime) 2008/01/02 03:04:05.678 VALTYPE (MT=65cd9e98, ADDR=003bef0c)
+
+0:000> !mdt theGuid 
+003bef1c (System.Guid) {29b9c9c8-3751-42be-8c7a-8b92ff499588} VALTYPE (MT=65cd6c60, ADDR=003bef1c) 
+
+0:000> !mdt ConsoleTestApp.TestStruct 
+TestStruct 
+   Member1: uint 
+   Member2: uint 
+
+0:000> !mdt ConsoleTestApp.TestStruct 003bef04 
+003bef04 (ConsoleTestApp.TestStruct) VALTYPE (MT=001b3198, ADDR=003bef04) 
+   Member1:0x162E (System.UInt32) 
+   Member2:0x451434E0 (System.UInt32) 
+
+0:000> !mdt 6487ce0 (-r)
+06487ce0 (System.Runtime.Remoting.Proxies.__TransparentProxy) 
+   _rp:06487cb4 (System.Runtime.Remoting.Proxies.RemotingProxy) 
+   _stubData:06482a5c (BOXED System.IntPtr) VALTYPE (MT=65cfb114, ADDR=06482a60) 
+   _pMT:65cf902c (System.IntPtr) 
+   _pInterfaceMT:00000000 (System.IntPtr) 
+   _stub:68c71e70 (System.IntPtr) 
+~~~~~~~~~~~~~~~~~~~~~~~~~example end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

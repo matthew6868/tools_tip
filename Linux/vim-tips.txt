@@ -1,0 +1,11 @@
+vim tips
+
+1)shift + g / :G  or GG
+=> go to the last line
+2)gg
+=> go to the first line
+
+3) copy/cut/paste
+=> 2yy;p
+=> 6,9 co 12/6,9 m 12/5, 9 de
+=> ma/mb/mc, 'a,'b co 'c 
