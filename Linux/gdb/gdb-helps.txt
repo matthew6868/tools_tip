@@ -7,6 +7,9 @@
 >backtrace #show call stack
 >info stack
 
+--显示当前栈的变量
+>i locals
+
 -----重定向
 >set logging file xxx.txt
 >set logging on
@@ -26,6 +29,21 @@
 
 --显示当前代码内容
 >list
+>list 10
+>list 5, 10
+
+--显示窗口
+>layout src # 显示源码窗口
+>layout cmd # 显示命令行窗口
+>layout regs # 显示寄存器窗口
+>layout asm # 显示汇编窗口
+>layout next #
+>layout prev #
+>layout split # 
+>winheight src +5 # 设置src窗口增加高度5行
+>focus src # 聚焦源码窗口
+>info win #显示窗口大小
+>[C-x], a #退出layout
 
 --输出变量（对象）内容
 >set print/p pretty on # pretty输出
@@ -35,6 +53,8 @@
 --查找函数符号
 >info functions [正则表达式]
 
+--进入指定frame
+>frame 1[number]
 
 (gdb) i
 "info" must be followed by the name of an info command.
