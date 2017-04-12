@@ -9,3 +9,6 @@ vim tips
 => 2yy;p
 => 6,9 co 12/6,9 m 12/5, 9 de
 => ma/mb/mc, 'a,'b co 'c 
+
+4) 复制粘帖时防止自动缩进
+=> :set paste #先执行如下命令，然后再粘帖

@@ -20,3 +20,14 @@ git stash pop/git stash apply stash@{0}
 error: RPC failed; result=18, HTTP code = 0
 git config http.postBuffer 524288000 
 or git config --global http.postBuffer 524288000 for global setting
+
+6)
+Windows 10下设置使用Beyond Compare diff/merge工具
+6-1)
+添加Beyond Compare目录到path目录，确保命令行下面运行BCompare.exe/bcomp能够打开窗口。
+6-2)
+git config --global diff.tool bc3
+git config --global difftool.bc3.path "c:/Program Files/Beyond Compare 4/bcomp.exe"
+注意这里一定要使用bcomp.exe而不要使用BCompare.exe，前面一个打开多个比较的时候使用多进程，后面的每打开一个比较都使用同一个进程，这样会导致打开失败的问题。
+参考设置：
+http://www.scootersoftware.com/support.php?c=kb_vcs.php

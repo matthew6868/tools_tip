@@ -17,3 +17,17 @@ crontab -u www-data -e / run as specical user and do crontab -e
 find ./ -name "*.h" |xargs cat|grep -v ^$|wc -l #去掉空格
 find demo/ -name "*.js" |wc -l #统计文件数量
 wc -l `find ./ -name "*.js"`|tail -n1 #统计行数，包含空格
+
+6, sudo 免密码输入
+#sudo visudo
+添加NOPASSWD:到指定的组，比如Ubuntu下面：
+%sudo ALL=(ALL:ALL) NOPASSWD: ALL
+CentOS下面：
+%wheel  ALL=(ALL) NOPASSWD: ALL
+
+7，统计文件夹大小并排序
+%:sudo du -lh --max-depth=1|grep '[GM]'|sort -rn
+
+8，CentOS 7关闭防火墙
+%:sudo systemctl stop firewalld
+%:sudo ps auxf|grep firewalld #查看

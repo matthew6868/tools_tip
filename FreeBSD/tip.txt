@@ -1,0 +1,21 @@
+## install sudo
+%:pkg install sudo
+
+## add new user
+%: adduser [USERNAME]
+
+## add new group
+%: pw groupadd [GROUPNAME]
+
+## add user to wheel group
+%: pw groupmod [GROUPNAME] -m [USERNAME]
+
+## delete user
+%: pw userdell [USERNAME]
+%: pw userdell [UID]
+%: rmuser [USERNAME]
+
+## setup ssh login
+%: sudo vi /etc/inetd.conf ==> uncomment ssh service
+%: sudo vi /etc/rc.conf ==> sshd_enable="YES"
+%: sudo /etc/rc.d/sshd start

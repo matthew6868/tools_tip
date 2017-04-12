@@ -1,0 +1,38 @@
+## Ubuntu 16.04 LTS 下安装设置samba服务共享文件夹
+
+#修改配置
+#sudo vim /etc/samba/smb.conf
+添加如下
+[ubuntu-works]
+        browseable = yes
+        public = no
+        available = yes
+        writable =yes
+        path = /home/mxu/works
+        user = mxu
+添加用户
+#sudo smbpasswd -a mxu 
+
+#sudo /etc/init.d/samba start/stop/restart
+或者
+#sudo systemctl start/stop smbd
+#sudo systemctl start/stop nmbd
+
+## CentOS 7 下安装设置samba服务共享文件夹
+sudo yum install samba samba-common samba-client
+smbpasswd -a mxu
+
+sudo systemctl enable smb
+sudo systemctl start/stop/restart smb
+
+systemctl stop firewalld.service ==> 关闭防火墙
+
+firewall-cmd --permanent --zone=public --add-service=samba ==> 或者设置防火墙
+firewall-cmd --reload
+
+## 排查错误
+$ smbd -i -d3 ==> 交互式，开始3级别的调试日志
+
+##清除windows记录的登陆信息
+> net use #查看
+> net use * /delete #删除
