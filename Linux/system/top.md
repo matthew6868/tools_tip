@@ -21,6 +21,3 @@ c - 显示进程命令行全路径
 $:mpstat -I SUM -P ALL 5 => 查看一下每个cpu的终端情况
 
 ## cat /proc/interrupts  ==> 查看中断
-
-## iostat 显示CPU和磁盘IO数据命令 ==> Report  Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions.
-$:iostat -x 2 2 ==> 每隔2秒，总共输出2次
