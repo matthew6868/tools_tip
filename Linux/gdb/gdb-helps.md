@@ -1,4 +1,16 @@
 # gdb 
+
+[TOC]
+
+### 符号表加载
+```shell
+$: gdb -g hello.c # 产生符合操作系统本地格式的调试信息（stabs、COFF、XCOFF ，或者 DWARF 2）
+$: gdb -s hello.c # strip, 编译时去除调试符号信息
+$: ojbcopy --only-keep-debug hello hello.debug # 保存调试信息到单独文件
+$: strip hello # 删除ELF格式文件符号表信息命令，支持自定义符号表信息
+$: gdb > symbol-file xxxx.pdb # 加载独立符号表,默认情况下会根据路径选找对应的.debug后缀的符号表信息
+```
+
 ### 根据文件名调试指定程序
 >gdb debug-sample #加载制定文件符号表
 >r arg1 arg2 # 运行该程序

@@ -9,6 +9,10 @@
 #:chmod 600 authorized_keys
 #:chmod 700 -R ~/.ssh
 ```
+配置OpenSSH server
+```shell
+#: echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config 
+```
 
 3, Could not open a connection to your authentication agent
 ```shell
