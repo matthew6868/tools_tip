@@ -18,7 +18,7 @@
 	#unix password sync = yes
 
 	log file = /var/log/samba/%m
-        log level = 3
+    log level = 3
 #[homes]
 #	comment = Home Directories
 #	valid users = %S, %D%w%S

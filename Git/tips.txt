@@ -31,3 +31,9 @@ git config --global difftool.bc3.path "c:/Program Files/Beyond Compare 4/bcomp.e
 注意这里一定要使用bcomp.exe而不要使用BCompare.exe，前面一个打开多个比较的时候使用多进程，后面的每打开一个比较都使用同一个进程，这样会导致打开失败的问题。
 参考设置：
 http://www.scootersoftware.com/support.php?c=kb_vcs.php
+
+7) clone 一个远程仓库并保留所有历史信息到自己的仓库
+git remote set-url origin <new-url> // 设置新仓库地址
+git push --all -f // 推送所有本地分支到远端仓库
+git remote show origin
+git remote set-head origin <3.0>

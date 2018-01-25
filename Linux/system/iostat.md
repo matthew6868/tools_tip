@@ -1,6 +1,9 @@
 # iostat
 
 ## 安装
+```shell
+# sudo yum -y install sysstat
+```
 
 ## 使用
 

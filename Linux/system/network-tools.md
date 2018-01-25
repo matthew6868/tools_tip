@@ -111,3 +111,14 @@ rates：分别表示过去 2s 10s 40s 的平均流量
 按!可以使用Shell命令，这个没用过！没搞明白啥命令在这好用呢！
 按q退出监控。
 ```
+
+## mtr
+> a network diagnostic tool. mtr combines the functionality of the traceroute and ping programs in a single network diagnostic tool.
+> 追踪路由信息
+
+```shell
+%: mtr -r www.baidu.com
+```
+
+## tracepath
+> traces path to a network host discovering MTU along this path
