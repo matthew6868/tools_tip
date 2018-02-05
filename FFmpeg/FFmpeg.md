@@ -31,4 +31,15 @@ for((;;)); do \
 done
 ```
 
+## 列出Windows系统的音视频设备信息
+```shell
+ $:./ffmpeg.exe -list_devices true -f dshow -i dummy
+```
+
+## 推送摄像头数据到RTMP服务器
+```shell
+$:  ./ffmpeg.exe -f dshow -i video="Lenovo EasyCamera":audio= "Microphone (Conexant 20751 SmartAudio HD)" -s 640x320 -r 30 -vcodec libx264 -b:v 1000k -f flv rtmp://172.18.34.123/live/ffmpeg
+```
+
+
 
