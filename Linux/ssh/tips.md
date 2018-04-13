@@ -20,3 +20,11 @@
 #: ssh-add ~/.ssh/id_rsa.cmcc
 #: ssh-add -l
 ```
+
+## 添加一个具有sudo权限的用户
+```shell
+#:useradd mxu
+#:passwd mxu
+#:usermod -G wheel mxu #添加到whell组，可选
+#:echo "mxu        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/1_mxu
+```
