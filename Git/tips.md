@@ -41,16 +41,26 @@ git remote show origin
 git remote set-head origin <3.0>
 
 ### 新建一个分支
+1. 新建分支
+> git branch qamaster
 
+2. 切换分支
+> git checkout qamaster
+
+3. 同步分支
+> git push origin qamaster 
+
+4. 删除分支
+> git branch -d qamaster
 
 ### 新建一个标签tag
 1. 设置一个含注释的标签
-> git tag -a v0.11 -m '0.11版本'
+> git tag -a v0.11 -m '0.11版本' 
 
 2. 推送到远端服务器
-> git push origin v0.11
+> git push origin v0.11  
 > git push origin tags //推送所有本地的tags
 
 3. 删除标签
-> git tag -d v0.11 //删除本地
+> git tag -d v0.11 //删除本地  
 > git push origin --delete v0.11 //删除远程服务端
