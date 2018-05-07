@@ -53,6 +53,16 @@ git remote set-head origin <3.0>
 4. 删除分支
 > git branch -d qamaster
 
+### 合并分支
+1. 切换到待合并的分支
+> git checkout qamaster
+
+2. 合并分支并处理冲突
+> git merge master
+
+3. 推送到远端
+> git push origin qamaster
+
 ### 新建一个标签tag
 1. 设置一个含注释的标签
 > git tag -a v0.11 -m '0.11版本' 
