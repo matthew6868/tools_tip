@@ -40,6 +40,12 @@ git push --all -f // 推送所有本地分支到远端仓库
 git remote show origin
 git remote set-head origin <3.0>
 
+### 新建一个远程分支
+```shell
+$: git branch -a
+$: git checkout -b qamaster origin/qamaster
+```
+
 ### 新建一个分支
 1. 新建分支
 > git branch qamaster
