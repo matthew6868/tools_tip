@@ -69,6 +69,16 @@ $: git checkout -b qamaster origin/qamaster
 3. 推送到远端
 > git push origin qamaster
 
+### 合并指定commit id
+1. 切换到待合并的分支
+> git checkout qamaster
+
+2. 合并指定commit id并处理冲突
+> git cherry-pick cf5d4061ef9d5bc3f680561a219180ed674e1b97 #
+
+3. 推送到远端
+> git push origin qamaster
+
 ### 新建一个标签tag
 1. 设置一个含注释的标签
 > git tag -a v0.11 -m '0.11版本' 
