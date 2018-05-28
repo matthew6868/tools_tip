@@ -74,7 +74,7 @@ $: git checkout -b qamaster origin/qamaster
 > git checkout qamaster
 
 2. 合并指定commit id并处理冲突
-> git cherry-pick cf5d4061ef9d5bc3f680561a219180ed674e1b97 #
+> git cherry-pick cf5d4061ef9d5bc3f680561a219180ed674e1b97
 
 3. 推送到远端
 > git push origin qamaster
