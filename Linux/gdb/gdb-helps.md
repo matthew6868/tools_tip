@@ -104,8 +104,10 @@ f 按浮点数格式显示变量。
 %:sudo yum install glibc-debuginfo
 ```
 ### 设置so库符号表的路径
+```shell
 gdb> set solib-absolute-prefix -- Set prefix for loading absolute shared library symbol files
 gdb> set solib-search-path -- Set the search path for loading non-absolute shared library symbol files
+```
 
 ### 设置GO语言支持
 如果gdb里面有警告加载失败，添加如下到~/.gdbinit文件中
