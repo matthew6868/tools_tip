@@ -1,4 +1,4 @@
-linux tips
+# linux tips
 
 1, copy files/folders
 cp file1.txt file2.txt /home/mxu
@@ -49,3 +49,12 @@ CentOS下面：
 %: sudo timedatectl list-timezones # 列出所有时区 Asia/Shanghai
 %: sudo timedatectl set-local-rtc 1 # 将硬件时钟调整为与本地时钟一致, 0 为设置为 UTC 时间
 %: sudo timedatectl set-timezone Asia/Shanghai # 设置系统时区为上海
+
+13. TIME_WAIT过高
+```shell
+vi /etc/sysctl.conf
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+/sbin/sysctl -p //使之生效
+```
