@@ -46,19 +46,19 @@ $:sudo service rabbitmq-server restart
 
 ### 创建用户
 ```shell
-$: rabbitmqctl add_user <username> 123456
+$:sudo rabbitmqctl add_user <username> 123456
 ```
 
 #### 权限设置
 
 > 设置管理员权限
 ```shell
-$:rabbitmqctl set_user_tags <username> administrator 
+$:sudo rabbitmqctl set_user_tags <username> administrator 
 ```
 
 > 设置访问权限
 ```shell
-$:rabbitmqctl set_permissions -p / <username> ".*" ".*" ".*"
+$:sudo rabbitmqctl set_permissions -p / <username> ".*" ".*" ".*"
 ```
 
 ### 创建队列
