@@ -46,7 +46,7 @@ $:sudo service rabbitmq-server restart
 
 ### 创建用户
 ```shell
-$: rabbitmqctl add_user mxu 123456
+$: rabbitmqctl add_user <username> 123456
 ```
 
 #### 权限设置
