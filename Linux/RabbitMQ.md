@@ -21,6 +21,7 @@ enabled=1
 
 ```shell
 $:sudo rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+$:sudo rpm -ivh https://github.com/rabbitmq/erlang-rpm/releases/download/v21.1.1/erlang-21.1.1-1.el7.centos.x86_64.rpm
 $:sudo yum install rabbitmq-server
 ```
 
