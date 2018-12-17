@@ -35,10 +35,12 @@ git config --global difftool.bc3.path "c:/Program Files/Beyond Compare 4/bcomp.e
 http://www.scootersoftware.com/support.php?c=kb_vcs.php
 
 7) clone 一个远程仓库并保留所有历史信息到自己的仓库
-git remote set-url origin <new-url> // 设置新仓库地址
-git push --all -f // 推送所有本地分支到远端仓库
-git remote show origin
-git remote set-head origin <3.0>
+```shell
+$: git remote set-url origin <new-url> // 设置新仓库地址 <br>
+$: git push --all -f // 推送所有本地分支到远端仓库 <br>
+$: git remote show origin <br>
+$: git remote set-head origin <3.0> <br>
+```
 
 ### 新建一个远程分支
 ```shell
