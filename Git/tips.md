@@ -10,14 +10,15 @@
 3. git core.autocrlf flag
 
 4. 
-$ git pull
+> $ git pull
 Cannot pull with rebase: You have unstaged changes.
 Please commit or stash them.
-==>
+```shell
 git status
 git reset --hard
 git stash
 git stash pop/git stash apply stash@{0}
+```
 
 5. error: RPC failed; result=18, HTTP code = 0
 > git config http.postBuffer 524288000 
