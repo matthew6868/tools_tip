@@ -10,7 +10,7 @@
 3. git core.autocrlf flag
 
 4. 
-> $ git pull
+> $ git pull<br>
 Cannot pull with rebase: You have unstaged changes.
 Please commit or stash them.
 ```shell
