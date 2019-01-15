@@ -38,3 +38,12 @@
 > CREATE USER 'finley'@'%' IDENTIFIED BY 'password'; # 创建一个远程访问用户
 > GRANT ALL PRIVILEGES ON *.* TO 'finley'@'%' WITH GRANT OPTION; # 设置所有访问权限
 ```
+
+10. upgrade from 5.7 to 8.0
+> 操作之前记得使用mysqldump备份数据和表结构
+```shell
+$: sudo yum-config-manager --disable mysql57-community
+$: sudo yum-config-manager --enable mysql80-community
+$: sudo yum update mysql
+$: sudo mysql_upgrade -u <user> -p <pwd> # 否则会报用户definer错误 
+```
