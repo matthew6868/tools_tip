@@ -37,6 +37,7 @@
 > grant select,insert,update,delete on databasename.tablename to 'username'@'host'; # 设置访问权限
 > CREATE USER 'finley'@'%' IDENTIFIED BY 'password'; # 创建一个远程访问用户
 > GRANT ALL PRIVILEGES ON *.* TO 'finley'@'%' WITH GRANT OPTION; # 设置所有访问权限
+> FLUSH PRIVILEGES;
 ```
 
 10. upgrade from 5.7 to 8.0
