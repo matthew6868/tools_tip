@@ -12,6 +12,7 @@
 配置OpenSSH server
 ```shell
 #: echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config 
+#: sudo systemctl restart sshd
 ```
 
 3, Could not open a connection to your authentication agent
@@ -27,4 +28,22 @@
 #:passwd mxu
 #:usermod -G wheel mxu #添加到whell组，可选
 #:echo "mxu        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/1_mxu
+```
+
+## 配置实例
+```
+AcceptEnv LANG LC_*
+ChallengeResponseAuthentication no
+HostKey /etc/ssh/ssh_host_rsa_key
+PasswordAuthentication no
+PermitRootLogin no
+PrintMotd no
+Protocol 2
+PubkeyAuthentication yes
+Subsystem sftp /usr/libexec/openssh/sftp-server
+SyslogFacility AUTHPRIV
+UseDNS no
+UsePAM yes
+UsePrivilegeSeparation yes
+X11Forwarding yes
 ```
