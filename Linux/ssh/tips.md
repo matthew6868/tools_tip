@@ -18,7 +18,7 @@
 3, Could not open a connection to your authentication agent
 ```shell
 #: eval $(ssh-agent -s) > /dev/null
-#: ssh-add ~/.ssh/id_rsa.cmcc
+#: ssh-add ~/.ssh/id_rsa.private
 #: ssh-add -l
 ```
 
