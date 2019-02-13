@@ -48,3 +48,10 @@ $: sudo yum-config-manager --enable mysql80-community
 $: sudo yum update mysql
 $: sudo mysql_upgrade -u <user> -p <pwd> # 否则会报用户definer错误 
 ```
+
+11. 修改最大并发连接数
+```shell
+$: mysql -uroot -p
+> show variables like '%max_connections%';
+> set GLOBAL max_connections = 1000; 
+```
