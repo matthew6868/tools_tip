@@ -92,3 +92,15 @@ $: git checkout -b qamaster origin/qamaster
 3. 删除标签
 > git tag -d v0.11 //删除本地  
 > git push origin --delete v0.11 //删除远程服务端
+
+### 修改已经提交commit的email
+```shell
+$: git checkout 03f482d6 //Checkout the commit we are trying to modify.
+$: git commit --amend --author="Author Name <email@address.com>"
+$: git replace 03f482d6 42627abe
+$: git filter-branch -- --all
+$: git replace -d 03f482d6
+$: git push --force-with-lease
+```
+全局修改
+> https://help.github.com/en/articles/changing-author-info
