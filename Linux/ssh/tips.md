@@ -22,6 +22,11 @@
 #: ssh-add -l
 ```
 
+## 生成秘钥
+```shell
+$: sudo ssh-keygen -t rsa -b 4096
+```
+
 ## 添加一个具有sudo权限的用户
 ```shell
 #:useradd mxu
