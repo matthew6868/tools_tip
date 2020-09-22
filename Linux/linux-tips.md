@@ -63,4 +63,5 @@ net.ipv4.tcp_tw_recycle = 1
 ```shell
 $: nm xxx.so
 $: nm -Do xxx.so //if no symbols tips, use -Do args
+$: objdump -tT xxx.so //列出 xxx.so 的函数 
 ```
