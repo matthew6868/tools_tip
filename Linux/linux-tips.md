@@ -58,3 +58,9 @@ net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
 /sbin/sysctl -p //使之生效
 ```
+
+14. 查看so文件符号表
+```shell
+$: nm xxx.so
+$: nm -Do xxx.so //if no symbols tips, use -Do args
+```
